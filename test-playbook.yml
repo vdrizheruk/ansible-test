@@ -1,14 +1,9 @@
 ---
 - hosts: servers
   tasks:
-  - name: "Disable SeLinux"
-    selinux:
-      state: disabled
-    when: ansible_os_family == 'Debian'
-    register: disable_selinux
   - debug:
       msg: "SeLinux disabled. Please restart the server to apply changes."
-    when: disable_selinux.changed == false
+    when: disable_selinux is defined and disable_selinux.changed == false
     
 - hosts: servers
   tasks:
